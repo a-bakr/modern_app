@@ -7,16 +7,7 @@ import Add from "./Components/Add";
 import Header from "./Components/Header";
 import Lists from "./Components/Lists";
 import store from "./store/configerStore";
-import { addTodo } from "./store/todo";
 import theme from "./theme";
-
-store.dispatch(
-	addTodo({
-		title: "Play",
-		todo: "play some football",
-	})
-);
-console.log(store.getState());
 
 function App() {
 	const [dark, setDark] = useState(true);

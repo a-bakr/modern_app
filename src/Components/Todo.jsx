@@ -5,36 +5,51 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Checkbox } from "@material-ui/core";
+import { Checkbox, Grid } from "@material-ui/core";
 import { BsTrash } from "react-icons/bs";
 import { RiTodoLine } from "react-icons/ri";
 import { IoMdDoneAll } from "react-icons/io";
+import { connect } from "react-redux";
+import { completedTodo, deleteTodo } from "../store/todoReducer";
 
-export default function SimpleCard(props) {
+function SimpleCard({ createDeleteTodo, createCompletedTodo, id, todoBody, title, completed }) {
 	const classes = useStyles();
 	return (
-		<div>
+		<Grid item lg={4} md={6} sm={6}>
 			<Card className={classes.root} color="primary">
 				<CardContent>
 					<Typography variant="h6" color="textSecondary" gutterBottom>
-						{props.todo}
+						{title}
 					</Typography>
-					<Typography variant="subtitle1" color="textSecondary" gutterBottom>
-						Hi every one my name is Abdallah Bakr Hi every one my name is Abdallah Bakr Hi every one my name is Abdallah Bakr
+					<Typography variant="subtitle2" color="textSecondary" gutterBottom>
+						{todoBody}
 					</Typography>
 				</CardContent>
 				<CardActions>
-					<Checkbox icon={<RiTodoLine />} checkedIcon={<IoMdDoneAll />} />
-					<Button size="small" color="secondary" variant="contained" startIcon={<BsTrash />}>
+					<Checkbox
+						icon={<RiTodoLine />}
+						checked={completed}
+						onClick={() => createCompletedTodo(id, completed)}
+						checkedIcon={<IoMdDoneAll />}
+					/>
+					<Button size="small" color="secondary" variant="contained" onClick={() => createDeleteTodo(id)} startIcon={<BsTrash />}>
 						Delete
 					</Button>
 				</CardActions>
 			</Card>
-		</div>
+		</Grid>
 	);
 }
 const useStyles = makeStyles((theme) => ({
 	root: {
 		boxShadow: "5px 5px 7px 0 rgba(50, 50, 50, 0.5);",
+		height: "100%",
 	},
 }));
+
+const mapDispatchToProps = (dispatch) => ({
+	createDeleteTodo: (id) => dispatch(deleteTodo({ id })),
+	createCompletedTodo: (id, completed) => dispatch(completedTodo({ id, completed })),
+});
+
+export default connect(null, mapDispatchToProps)(SimpleCard);

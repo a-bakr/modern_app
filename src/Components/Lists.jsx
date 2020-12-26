@@ -3,8 +3,9 @@ import { Container, Grid, IconButton, makeStyles, Typography } from "@material-u
 import { RiTodoLine } from "react-icons/ri";
 import { IoMdDoneAll } from "react-icons/io";
 import Todo from "./Todo";
+import { connect } from "react-redux";
 
-export default function ToDo() {
+function ToDo({ todos, onCreatePressed }) {
 	const classes = useStyles();
 	return (
 		<Container>
@@ -19,12 +20,12 @@ export default function ToDo() {
 						</Typography>
 					</Grid>
 					<Grid container spacing={3} justify="center">
-						<Grid item lg={4} md={6} sm={6}>
-							<Todo todo="note1" />
-						</Grid>
-						<Grid item lg={4} md={6} sm={6}>
-							<Todo todo="note1" />
-						</Grid>
+						{todos.map(
+							(todo) =>
+								!todo.completed && (
+									<Todo key={todo.id} id={todo.id} completed={todo.completed} todoBody={todo.todo} title={todo.title} />
+								)
+						)}
 					</Grid>
 				</Grid>
 
@@ -38,12 +39,12 @@ export default function ToDo() {
 						</Typography>
 					</Grid>
 					<Grid container spacing={3} justify="center">
-						<Grid item lg={4} md={6} sm={6}>
-							<Todo todo="note2" />
-						</Grid>
-						<Grid item lg={4} md={6} sm={6}>
-							<Todo todo="note3" />
-						</Grid>
+						{todos.map(
+							(todo) =>
+								todo.completed && (
+									<Todo key={todo.id} completed={todo.completed} id={todo.id} todoBody={todo.todo} title={todo.title} />
+								)
+						)}
 					</Grid>
 				</Grid>
 			</Grid>
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	contant: {
 		textAlign: "center",
+		width: "100%",
 		padding: "30px 20px",
 	},
 	icon: {
@@ -66,3 +68,6 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: "16px",
 	},
 }));
+
+const mapStateToProps = (state) => ({ todos: state });
+export default connect(mapStateToProps)(ToDo);
