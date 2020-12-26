@@ -1,0 +1,26 @@
+[
+	{
+		"id": 1,
+		"title": "Home",
+		"todo": "get some milk",
+		"completed": false
+	},
+	{
+		"id": 2,
+		"title": "Work",
+		"todo": "do my important work",
+		"completed": false
+	},
+	{
+		"id": 3,
+		"title": "Sport",
+		"todo": "finish my daily workout",
+		"completed": true
+	},
+	{
+		"id": 4,
+		"title": "Reading",
+		"todo": "spen some to read my book",
+		"completed": true
+	}
+]
