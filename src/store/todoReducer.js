@@ -3,7 +3,7 @@ import todosList from "../assets/todoData.json";
 
 let id = todosList.length + 1;
 
-const { reducer, actions } = createSlice({
+const slice = createSlice({
 	name: "todo",
 	initialState: todosList,
 	reducers: {
@@ -30,11 +30,12 @@ const { reducer, actions } = createSlice({
 		},
 
 		deleteTodo: (todos, action) => {
-			const index = todos.findIndex((todo) => (todo.id = action.payload.id));
+			const index = todos.findIndex((todo) => todo.id === action.payload.id);
 			todos.splice(index, 1);
 		},
 	},
 });
 
-export default reducer;
-export const { addTodo, completedTodo, deleteTodo } = actions;
+const todoReducer = slice.reducer;
+export default todoReducer;
+export const { addTodo, completedTodo, deleteTodo } = slice.actions;

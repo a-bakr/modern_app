@@ -32,8 +32,11 @@ function SimpleCard({ createDeleteTodo, createCompletedTodo, id, todoBody, title
 						onClick={() => createCompletedTodo(id, completed)}
 						checkedIcon={<IoMdDoneAll />}
 					/>
-					<Button size="small" color="secondary" variant="contained" onClick={() => createDeleteTodo(id)} startIcon={<BsTrash />}>
-						Delete
+					<Button size="small" color="secondary" variant="contained" onClick={() => createDeleteTodo(id)}>
+						<BsTrash fontSize="20" />
+						<Typography variant="subtitle2" className={classes.delete}>
+							Delete
+						</Typography>
 					</Button>
 				</CardActions>
 			</Card>
@@ -44,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		boxShadow: "5px 5px 7px 0 rgba(50, 50, 50, 0.5);",
 		height: "100%",
+	},
+	delete: {
+		padding: "0 5px",
 	},
 }));
 
